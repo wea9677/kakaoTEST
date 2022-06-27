@@ -32,7 +32,7 @@ const kakaoCallback = (req, res, next) => {
     )(req, res, next)
 }
 
-router.get('/callback/kakao', kakaoCallback)
+router.get('/oauth/callback/kakao', kakaoCallback)
 
 //* 구글로 로그인하기 라우터 ***********************
 // router.get(
