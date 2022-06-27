@@ -1,5 +1,4 @@
 const express = require('express');
-
 const passportConfig = require('passport');
 const kakaoRouter = require('./routes/kakao');
 const path = require('path');
