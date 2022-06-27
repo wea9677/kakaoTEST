@@ -1,8 +1,9 @@
 const express = require('express');
-const passportConfig = require('passport');
-const kakaoRouter = require('./routes/kakao');
-const path = require('path');
-
+const passport = require('passport');
+const authRouter = require('./routes/auth')
+const path = require('path')
+const dotenv = require('dotenv')
+dotenv.config()
 
 const PORT = 8080
 
@@ -10,13 +11,35 @@ const PORT = 8080
 
 
 const app = express();
+
+
 app.use(express.json())
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
-app.use('/api', express.urlencoded({ extended: false }), [ 
-    kakaoRouter ]);
+
+/**
+ * 세션 세팅
+ */
+ const configureSession = require('./passport/session')
+ configureSession(app)
+ 
+ /**
+  * passport 세팅
+  */
+ const configurePassport = require('./passport/kakaoStrategy')(app)
+ configurePassport(passport)
+
+ /**
+ * Routing
+ */
+
+app.use('/auth', authRouter)
+
+
+
+
 
 
 
